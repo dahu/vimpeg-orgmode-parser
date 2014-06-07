@@ -1,4 +1,4 @@
-let debug = 0
+let debug = 1
 function! Debug(msg)
   if get(g:, 'debug', 0)
     echom a:msg
@@ -50,8 +50,7 @@ function! orgmodep#property_key(elems)
   return a:elems[1]
 endfunction
 
-function! orgmodep#property_value(elems)
-  call Debug( 'property_value=' . string(a:elems) )
+function! orgmodep#rest_of_line(elems)
+  call Debug( 'rest_of_line=' . string(a:elems) )
   return a:elems[0]
 endfunction
-
