@@ -12,4 +12,4 @@ When editing ++autoload/orgmode.vimpeg++, use the :VimPEG! command to
 regenerate the parser.
 
 Use the ++plugin/orgmode.vim++ command, ++:echo
-ParseOrgModeFile('sample.orgmode')++ to see the tokenizer results.
+ParseOrgModeFile(\'sample.orgmode')++ to see the tokenizer results.
