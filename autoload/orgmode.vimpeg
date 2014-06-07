@@ -1,0 +1,24 @@
+; PEG grammar of simplified Emacs org-mode format
+; Barry Arthur, 2014 06 07
+
+.skip_white   = false
+.namespace    = 'orgmodep'
+.parser_name  = 'orgmode'
+.root_element = 'orgline'
+
+orgline           ::= ( directive | markup | content )* EOF          -> #orgline
+directive         ::= ws '#' '.\{-}\ze[\r\n]' line_end               -> #directive
+markup            ::= headline | properties
+headline          ::= stars ws '.\{-}\ze[\r\n]' line_end             -> #headline
+content_line      ::= !markup  '.\{-}\ze[\r\n]' line_end             -> #content_line
+content           ::= ( content_line | line_end )+
+stars             ::= '\*\{1,3\}'
+properties_begin  ::= ws ':PROPERTIES:' ws line_end
+properties_end    ::= ws ':END:' ws line_end
+properties        ::= properties_begin property_pair* properties_end -> #properties
+property_pair     ::= ws property_key ws property_value ws           -> #property_pair
+property_key      ::= !properties_end ':[a-zA-Z_-]\+:'               -> #property_key
+property_value    ::= '.\{-}\ze[\r\n]' line_end                      -> #property_value
+ws                ::= '[\t ]*'
+line_end          ::= '[\r\n]'
+EOF               ::= !'.'

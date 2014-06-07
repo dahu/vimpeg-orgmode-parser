@@ -1,0 +1,15 @@
+Simplified Org-Mode Parser
+--------------------------
+
+Requires: https://github.com/dahu/vimpeg[]
+
+Usually I would use the callback functions in
+++autoload/orgmodep.vim++ to build or refine my AST but here I am just
+using them to create a tagged token stream. Changing them to shape a
+tree is a fairly trivial task.
+
+When editing ++autoload/orgmode.vimpeg++, use the :VimPEG! command to
+regenerate the parser.
+
+Use the ++plugin/orgmode.vim++ command, ++:echo
+ParseOrgModeFile('sample.orgmode')++ to see the tokenizer results.
