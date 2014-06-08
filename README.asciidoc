@@ -3,15 +3,75 @@ Simplified Org-Mode Parser
 
 Requires: https://github.com/dahu/vimpeg[]
 
-The callback functions in ++autoload/orgmodep.vim++ would usually
-build or refine my AST but here I am just using them to create a
-tagged token stream.
+Quick Overview
+~~~~~~~~~~~~~~
 
-A separate builder walks the token stream to construct the resulting
-datastructure.
+  :call WriteOrgModeFile(ReadOrgModeFile('sample.orgmode'), 'out.orgmode')
 
-When editing ++autoload/orgmode.vimpeg++, use the ++:VimPEG!++ command to
-regenerate the parser.
+  :let orgdata = ReadOrgModeFile('sample.orgmode')
 
-Use the ++plugin/orgmode.vim++ command, ++:echo
-ParseOrgModeFile(\'sample.orgmode')++ to see the builder results.
+For the provided ++sample.orgmode++ file, the resulting ++orgdata++ is:
+
+  {
+    'directives': [
+      ['TITLE:', 'My Personal Todo file'],
+      ['AUTHOR:', 'Some One'],
+      ['EMAIL:', 'some.one@gmail.com'],
+      ['FILETAGS:', 'PERSONAL']
+    ],
+    'headlines': [
+      {
+        'contents': [],
+        'drawers': [],
+        'level': 1,
+        'metadata': {},
+        'priority': '',
+        'tags': '',
+        'title': 'Tasks',
+        'todo': ''
+      },
+      {
+        'contents': [],
+        'drawers': [['PROPERTIES', [{'name': 'Effort', 'value': '0:30'}]]],
+        'level': 2,
+        'metadata': {},
+        'priority': '',
+        'tags': '',
+        'title': ' Revisit Medical Insurance, get Another covered by it as well',
+        'todo': 'TODO'
+      },
+      {
+        'contents': ['Some arbitrary content'],
+        'drawers': [
+          [
+            'PROPERTIES',
+            [{'name': 'Cost', 'value': '100.00'}, {'name': 'Effort', 'value': '2:00'}]
+          ]
+        ],
+        'level': 2,
+        'metadata': {'CLOSED': {'type': 'datetime', 'value': '2014-05-29 Thu 17:57'}},
+        'priority': '',
+        'tags': '',
+        'title': ' Not Working with unicode charaters.',
+        'todo': 'DONE'
+      },
+      {
+        'contents': ['Some more arbitrary content'],
+        'drawers': [],
+        'level': 3,
+        'metadata': {
+          'CLOSED': {'type': 'datetime', 'value': '2014-01-25 Sat 19:36'},
+          'DEADLINE': {'type': 'date', 'value': '2014-01-24 Fri'}
+        },
+        'priority': '',
+        'tags': '',
+        'title': ' Visit Gas Agency',
+        'todo': 'DONE'
+      }
+    ]
+  }
+
+  :call WriteOrgModeFile(orgdata, 'sample.orgmode')
+
+NOTE: Currently ++WriteOrgModeFile()++ will throw an exception if the
+target file already exists.

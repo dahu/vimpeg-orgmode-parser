@@ -88,11 +88,14 @@ function! orgmodep#build(tokens)
     call extend(self.node[-1].metadata, meta)
   endfunc
 
-  func obj.add_props(node)
-    let name = toupper(a:node[0])
-    let key = substitute(substitute(a:node[1][0][0], '^:', '', ''), ':$', '', '')
-    let val = join(a:node[1][0][1], ', ')
-    let drawer = {'name' : name, key : val}
+  func obj.add_properties(node)
+    let type = toupper(a:node[0])
+    let drawer = [type, []]
+    for d in a:node[1]
+      let name = d[0][1:-2]
+      let val = d[1][0]
+      call add(drawer[1], {'name' : name, 'value' : val})
+    endfor
     call add(self.node[-1].drawers, drawer)
   endfunc
 
@@ -133,7 +136,7 @@ endfunction
 
 function! orgmodep#meta_key(elems)
   call Debug( 'meta_key=' . string(a:elems) )
-  return a:elems[1]
+  return a:elems[1][0:-2]
 endfunction
 
 function! orgmodep#meta_datetime(elems)
@@ -148,7 +151,7 @@ endfunction
 
 function! orgmodep#props(elems)
   call Debug( 'props=' . string(a:elems) )
-  return ['props', a:elems[1]]
+  return ['properties', a:elems[1]]
 endfunction
 
 function! orgmodep#prop_pair(elems)
