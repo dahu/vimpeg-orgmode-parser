@@ -1,17 +1,19 @@
 #+TITLE: My Personal Todo file
-#+AUTHOR: Dhruva Sagar
-#+EMAIL: dhruva.sagar@gmail.com
+#+AUTHOR: Some One
+#+EMAIL: some.one@gmail.com
 #+FILETAGS: PERSONAL
 
 * Tasks
-** TODO Revisit Medical Insurance, get Niharica covered by it as well
+** TODO Revisit Medical Insurance, get Another covered by it as well
 :PROPERTIES:
-:Effort:   0:30    
+:Effort:   0:30
 :END:
 ** DONE Not Working with unicode charaters.
 CLOSED: [2014-05-29 Thu 17:57]
 :PROPERTIES:
 :Effort:   2:00
 :END:
+Some arbitrary content
 *** DONE Visit Gas Agency
 CLOSED: [2014-01-25 Sat 19:36] DEADLINE: <2014-01-24 Fri>
+Some more arbitrary content
