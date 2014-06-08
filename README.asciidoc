@@ -3,13 +3,15 @@ Simplified Org-Mode Parser
 
 Requires: https://github.com/dahu/vimpeg[]
 
-Usually I would use the callback functions in
-++autoload/orgmodep.vim++ to build or refine my AST but here I am just
-using them to create a tagged token stream. Changing them to shape a
-tree is a fairly trivial task.
+The callback functions in ++autoload/orgmodep.vim++ would usually
+build or refine my AST but here I am just using them to create a
+tagged token stream.
+
+A separate builder walks the token stream to construct the resulting
+datastructure.
 
 When editing ++autoload/orgmode.vimpeg++, use the ++:VimPEG!++ command to
 regenerate the parser.
 
 Use the ++plugin/orgmode.vim++ command, ++:echo
-ParseOrgModeFile(\'sample.orgmode')++ to see the tokenizer results.
+ParseOrgModeFile(\'sample.orgmode')++ to see the builder results.
