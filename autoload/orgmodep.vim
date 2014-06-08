@@ -141,12 +141,22 @@ endfunction
 
 function! orgmodep#meta_datetime(elems)
   call Debug( 'meta_datetime=' . string(a:elems) )
-  return ['datetime', a:elems[1]]
+  if exists('g:loaded_lib_datetime')
+    let datetime = datetime#new(datetime#ymdahm_string_to_seconds(a:elems[1]))
+  else
+    let datetime = a:elems[1]
+  endif
+  return ['datetime', datetime]
 endfunction
 
 function! orgmodep#meta_date(elems)
   call Debug( 'meta_date=' . string(a:elems) )
-  return ['date', a:elems[1]]
+  if exists('g:loaded_lib_datetime')
+    let date = datetime#new(datetime#ymda_string_to_seconds(a:elems[1]))
+  else
+    let date = a:elems[1]
+  endif
+  return ['date', date]
 endfunction
 
 function! orgmodep#props(elems)

@@ -20,7 +20,22 @@ function! orgmodeg#generate(tree)
       let br = {'datetime' : ['[', ']'], 'date' : ['<', '>']}
       let md = ''
       for [key, val] in sort(items(head.metadata))
-        let md .= key . ': ' . br[val.type][0] . val.value . br[val.type][1] . ' '
+        if type(val.value) == type({})
+          if exists('g:loaded_lib_datetime')
+            if val.type == 'datetime'
+              let dt = val.value.to_string('%Y-%m-%d %a %H:%M')
+            elseif val.type == 'date'
+              let dt = val.value.to_string('%Y-%m-%d %a')
+            else
+              throw 'Unexpected internal error: unrecognised datetime: ' . val.type
+            endif
+          else
+            throw 'vim-type-datetime missing'
+          endif
+        else
+          let dt = val.value
+        endif
+        let md .= key . ': ' . br[val.type][0] . dt . br[val.type][1] . ' '
       endfor
       let s .= substitute(md, '\s\+$', '', '') . "\n"
     endif

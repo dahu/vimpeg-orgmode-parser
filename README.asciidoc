@@ -2,6 +2,13 @@ Simplified Org-Mode Parser
 --------------------------
 
 Requires: https://github.com/dahu/vimpeg[]
+Suggests: https://github.com/dahu/vim-type-datetime[]
+
+NOTE: If you have the
+https://github.com/dahu/vim-type-datetime[vim-type-datetime] library
+installed, ++vimpeg-parser-orgmode++ will parse orgmode style dates
+and store them internally in a sortable, comparable, adjustable
+format.
 
 Quick Overview
 ~~~~~~~~~~~~~~
@@ -11,6 +18,11 @@ Quick Overview
   :let orgdata = ReadOrgModeFile('sample.orgmode')
 
 For the provided ++sample.orgmode++ file, the resulting ++orgdata++ is:
+
+NOTE: The following does not show
+https://github.com/dahu/vim-type-datetime[vim-type-datetime] dates,
+but rather simple textual representations, as will happen when you
+don't have ++vim-type-datetime++ installed.
 
   {
     'directives': [
